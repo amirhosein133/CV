@@ -1,0 +1,130 @@
+/* ----------------------------------------------------------------
+	Fonts
+
+	Replace your Fonts as necessary
+-----------------------------------------------------------------*/
+@import url('../../fonts/font-awesome/css/all.min.css');
+
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: bold;
+    src: url('../../fonts/eot/IRANSansWeb_Bold.eot');
+    src: url('../../fonts/eot/IRANSansWeb_Bold.eot?#iefix') format('embedded-opentype'), /* IE6-8 */ url('../../fonts/woff2/IRANSansWeb_Bold.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/ url('../../fonts/woff/IRANSansWeb_Bold.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('../../fonts/ttf/IRANSansWeb_Bold.ttf') format('truetype');
+}
+
+/*@font-face {*/
+/*    font-family: IRANSans;*/
+/*    font-style: normal;*/
+/*    font-weight: 500;*/
+/*    src: url('../../fonts/eot/IRANSansWeb_Medium.eot');*/
+/*    src: url('../../fonts/eot/IRANSansWeb_Medium.eot?#iefix') format('embedded-opentype'),  !* IE6-8 *!*/
+/*    url('../../fonts/woff2/IRANSansWeb_Medium.woff2') format('woff2'),  !* FF39+,Chrome36+, Opera24+*!*/
+/*    url('../../fonts/woff/IRANSansWeb_Medium.woff') format('woff'),  !* FF3.6+, IE9, Chrome6+, Saf5.1+*!*/
+/*    url('../../fonts/ttf/IRANSansWeb_Medium.ttf') format('truetype');*/
+/*}*/
+/*@font-face {*/
+/*    font-family: IRANSans;*/
+/*    font-style: normal;*/
+/*    font-weight: 300;*/
+/*    src: url('../../fonts/eot/IRANSansWeb_Light.eot');*/
+/*    src: url('../../fonts/eot/IRANSansWeb_Light.eot?#iefix') format('embedded-opentype'),  !* IE6-8 *!*/
+/*    url('../../fonts/woff2/IRANSansWeb_Light.woff2') format('woff2'),  !* FF39+,Chrome36+, Opera24+*!*/
+/*    url('../../fonts/woff/IRANSansWeb_Light.woff') format('woff'),  !* FF3.6+, IE9, Chrome6+, Saf5.1+*!*/
+/*    url('../../fonts/ttf/IRANSansWeb_Light.ttf') format('truetype');*/
+/*}*/
+/*@font-face {*/
+/*    font-family: IRANSans;*/
+/*    font-style: normal;*/
+/*    font-weight: 200;*/
+/*    src: url('../../fonts/eot/IRANSansWeb_UltraLight.eot');*/
+/*    src: url('../../fonts/eot/IRANSansWeb_UltraLight.eot?#iefix') format('embedded-opentype'),  !* IE6-8 *!*/
+/*    url('../../fonts/woff2/IRANSansWeb_UltraLight.woff2') format('woff2'),  !* FF39+,Chrome36+, Opera24+*!*/
+/*    url('../../fonts/woff/IRANSansWeb_UltraLight.woff') format('woff'),  !* FF3.6+, IE9, Chrome6+, Saf5.1+*!*/
+/*    url('../../fonts/ttf/IRANSansWeb_UltraLight.ttf') format('truetype');*/
+/*}*/
+@font-face {
+    font-family: IRANSans;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../../fonts/eot/IRANSansWeb.eot');
+    src: url('../../fonts/eot/IRANSansWeb.eot?#iefix') format('embedded-opentype'), /* IE6-8 */ url('../../fonts/woff2/IRANSansWeb.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/ url('../../fonts/woff/IRANSansWeb.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url('../../fonts/ttf/IRANSansWeb.ttf') format('truetype');
+}
+
+
+body,
+small,
+#primary-menu ul ul li > a,
+.wp-caption,
+.feature-box.fbox-center.fbox-italic p,
+.skills li .progress-percent .counter,
+.nav-tree ul ul a {
+    font-family: IRANSans;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+#logo,
+#primary-menu ul li > a,
+#primary-menu ul li .mega-menu-content.style-2 ul.mega-menu-column > li.mega-menu-title > a,
+#top-search form input,
+.entry-link,
+.entry.entry-date-section span,
+.button.button-desc,
+.counter,
+label,
+.nav-tree li a,
+.wedding-head .first-name,
+.wedding-head .last-name {
+    font-family: IRANSans;
+}
+
+.entry-meta li,
+.entry-link span,
+.entry blockquote p,
+.more-link,
+.comment-content .comment-author span,
+.button.button-desc span,
+.testi-content p,
+.team-title span,
+.before-heading,
+.wedding-head .first-name span,
+.wedding-head .last-name span {
+    font-family: IRANSans;
+}
+
+.font-body {
+    font-family: IRANSans !important;
+}
+
+.font-primary {
+    font-family: IRANSans !important;
+}
+
+.font-secondary {
+    font-family: IRANSans !important;
+}
+
+
+/* ----------------------------------------------------------------
+	You can change your Font Specific Settings here
+-----------------------------------------------------------------*/
+
+
+body {
+    line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    line-height: 1.5;
+}

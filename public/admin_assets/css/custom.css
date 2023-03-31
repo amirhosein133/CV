@@ -1,0 +1,13 @@
+.select2-container--bootstrap5 .select2-selection--multiple:not(.form-select-sm):not(.form-select-lg) .select2-selection__choice .select2-selection__choice__display {
+    margin-left: 0 !important;
+    margin-right: 1.2rem !important;
+}
+
+.select2-container--bootstrap5 .select2-selection--multiple:not(.form-select-sm):not(.form-select-lg) .select2-selection__choice .select2-selection__choice__remove {
+    margin-right: 0;
+}
+
+
+.page-item.active .page-link {
+    background-color: var(--bs-dark);
+}
