@@ -10,8 +10,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable, CheckPermissionUser;
 
@@ -49,6 +50,16 @@ class User extends Authenticatable
         'extra_attributes' => SchemalessAttributes::class,
     ];
 
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
     public function scopeWithExtraAttributes(): Builder
     {
         return $this->extra_attributes->modelScope();
@@ -69,6 +80,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class);
     }
+
     public function connections()
     {
         return $this->hasMany(Connection::class);
