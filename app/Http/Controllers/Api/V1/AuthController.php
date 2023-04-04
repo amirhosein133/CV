@@ -6,6 +6,7 @@ use App\Event\LoginEvent;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Repositories\LoginRepository\LoginRepositoryInterface;
+use App\Repositories\RegisterRepository\RegisterRepositoryInterface;
 use http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -16,28 +17,24 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class AuthController extends Controller
 {
     public $repository;
+    public $registerRepository;
 
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
-    public function __construct(LoginRepositoryInterface $repository)
+    public function __construct(LoginRepositoryInterface $repository, RegisterRepositoryInterface $registerRepository)
     {
-        $this->middleware('auth:api', ['except' => ['login', 'validation']]);
+        $this->middleware('auth:api', ['except' => ['login', 'validation', 'register', 'registered']]);
         $this->repository = $repository;
+        $this->registerRepository = $registerRepository;
     }
 
     public function validation(Request $request)
     {
-        $user = User::where('activation', 1)->where('mobile', $request->mobile)->first();
-        if (isset($user)) {
-            $code = $this->repository->createCode();
-            Cache::Put('token', $code);
-            Cache::put('user', $user);
-            event(new LoginEvent($user, $code));
-            return \response()->json(['message' => 'true'], 200);
-        }
+        $status = $this->repository->validation($request->all());
+        if ($status) return \response()->json(['message' => 'send code'], 200);
         return response()->json(['error' => 'you have registered'], 401);
     }
 
@@ -48,16 +45,19 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        if (Cache::has('token')) {
-            if (Cache::get('token') == $request->token) {
-                $user = Cache::get('user');
-                if (!$userToken = JWTAuth::fromUser($user)) {
-                    return response()->json(['error' => 'invalid_credentials'], 401);
-                }
-                return $this->respondWithToken($userToken);
-            } else
-                return \response()->json(['Erorr' => 'invalid code'], 401);
-        } else return \response()->json(['Erorr' => 'please try again'], 401);
+        return $this->repository->loginApi($request->all());
+    }
+
+    public function register(Request $request)
+    {
+        $status = $this->registerRepository->validation($request->all());
+        if ($status == 'success') return \response()->json(['message' => 'send code'], 200);
+        else return \response()->json(['error' => $status], 401);
+    }
+
+    public function registered(Request $request)
+    {
+        return $this->registerRepository->RegisteredApi($request->all());
     }
 
     /**
@@ -89,22 +89,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth('api')->refresh());
+        return $this->repository->respondWithToken(auth('api')->refresh());
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
-        ]);
-    }
 }

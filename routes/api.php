@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'auth'], function ($router) {
         Route::post('validation' , [AuthController::class , 'validation']);
-        Route::post('login', [AuthController::class, 'login'])->name('api.login');
+        Route::post('login', [AuthController::class, 'login']);
+        Route::post('register' , [AuthController::class , 'register']);
+        Route::post('registered' , [AuthController::class , 'registered']);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('refresh', [AuthController::class, 'refresh']);
         Route::post('me', [AuthController::class, 'me']);

@@ -11,4 +11,6 @@ interface RegisterRepositoryInterface
     public function createCode();
 
     public function RepeatMistak();
+
+    public function RegisteredApi($attributes);
 }
