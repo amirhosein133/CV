@@ -21,6 +21,10 @@ class Category extends Model
     {
         return $this->morphedByMany(Article::class, 'categoriables');
     }
+    public function products()
+    {
+        return $this->morphedByMany(Product::class, 'categoriables');
+    }
     public function projects()
     {
         return $this->morphedByMany(Project::class, 'categoriables');

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +24,12 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('refresh', [AuthController::class, 'refresh']);
         Route::post('me', [AuthController::class, 'me']);
+    });
+    Route::group(['prefix' => 'product'] , function (){
+        Route::get('index' , [ProductController::class , 'index']);
+        Route::post('store' , [ProductController::class , 'store']);
+        Route::post('show/{product}' , [ProductController::class , 'show']);
+        Route::put('update/{product}' , [ProductController::class , 'update']);
+        Route::delete('delete/{product}' , [ProductController::class , 'destroy']);
     });
 });

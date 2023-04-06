@@ -20,7 +20,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->title()
+            'name' => fake()->colorName()
         ];
     }
 }
