@@ -8,14 +8,17 @@ use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
+use App\Repositories\ProductRepository\ProductRepositoryInterface;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function __construct()
+    public $repository;
+
+    public function __construct(ProductRepositoryInterface $repository)
     {
         $this->middleware('auth:api', ['except' => ['index']]);
-
+        $this->repository = $repository;
     }
 
     /**
@@ -26,7 +29,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::paginate();
+        $products = $this->repository->all();
         return response()->json(new  ProductCollection($products), 200);
     }
 
@@ -39,12 +42,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        $product = auth('api')->user()->products()->create([
-            'name' => $request->name,
-            'description' => $request->description ?? '----',
-            'price' => $request->price
-        ]);
-        $product->categories()->attach($request->categories);
+        $products = $this->repository->store($request->all());
         return response()->json(['message' => 'create product is success'], 200);
     }
 
@@ -69,8 +67,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->all());
-        $product->categories()->sync($request->categories);
+        $this->repository->update($request->all(), $product);
         return response()->json(['message' => 'updated is success'], 200);
     }
 
@@ -82,8 +79,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
-        $product->categories()->detach();
+        $this->repository->delete($product);
+
         return response()->json(['message' => 'deleted is success'], 200);
     }
 }

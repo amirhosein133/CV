@@ -26,14 +26,10 @@ class ProductResource extends JsonResource
 
     public function getCategories($categories)
     {
-        if (isset($categories)) {
-            $name = null;
-            foreach ($categories as $category) {
-                $name[] = $category->name;
-            }
-            return $name;
-        } else {
-            return null;
+        $name = null;
+        foreach ($categories as $category) {
+            $name[] = $category->name;
         }
+        return $name;
     }
 }

@@ -12,6 +12,8 @@ use App\Repositories\LoginRepository\ElequentLoginRepository;
 use App\Repositories\LoginRepository\LoginRepositoryInterface;
 use App\Repositories\PermissionRepository\ElequentPermissionRepository;
 use App\Repositories\PermissionRepository\PermissionRepositoryInterface;
+use App\Repositories\ProductRepository\ElequentProductRepository;
+use App\Repositories\ProductRepository\ProductRepositoryInterface;
 use App\Repositories\ProjectRepository\ElequentProjectRepository;
 use App\Repositories\ProjectRepository\ProjectRepositoryInterface;
 use App\Repositories\RegisterRepository\ElequentRegisterRepository;
@@ -50,5 +52,6 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(RoleRepositoryInterface::class, ElequentRoleRepository::class);
         $this->app->bind(PermissionRepositoryInterface::class, ElequentPermissionRepository::class);
         $this->app->bind(ConnectionRepositoryInterface::class, ElequentConnectionRepository::class);
+        $this->app->bind(ProductRepositoryInterface::class, ElequentProductRepository::class);
     }
 }
