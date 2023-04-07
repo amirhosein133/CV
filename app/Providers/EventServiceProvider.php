@@ -10,6 +10,8 @@ use App\Listener\SendEmailVerificationNotification;
 use App\Listener\SendEmailCreateComment;
 use App\Listener\sendEmailAuthentication;
 use App\Listeners\SendMessageForUser;
+use App\Models\Product;
+use App\Observers\ProductObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
@@ -43,7 +45,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Product::observe([ProductObserver::class]);
     }
 
     /**

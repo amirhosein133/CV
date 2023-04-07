@@ -39,6 +39,5 @@ class ElequentProductRepository implements ProductRepositoryInterface
     public function delete(Product $product)
     {
         $product->delete();
-        $product->categories()->detach();
     }
 }
