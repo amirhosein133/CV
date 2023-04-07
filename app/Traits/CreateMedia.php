@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Article;
 use App\Models\Media;
+use App\Models\Product;
 use App\Models\Project;
 use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
@@ -12,10 +13,9 @@ trait CreateMedia
 {
     protected function uploadMedia($files, $type, $class)
     {
-
         if (isset($files)) {
+            $url=null;
             foreach ($files as $key => $file) {
-
                 $year = Carbon::now()->year;
                 switch ($class) {
                     case ($class == Project::class):
@@ -24,6 +24,10 @@ trait CreateMedia
 
                     case ($class == Article::class):
                         $mediaUrl = "/upload/Article/{$type}/{$year}/";
+                        break;
+
+                    case ($class == Product::class):
+                        $mediaUrl = "/upload/Product/{$type}/{$year}/";
                         break;
 
                 }

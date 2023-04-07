@@ -9,16 +9,22 @@ use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Repositories\ProductRepository\ProductRepositoryInterface;
+use App\Repositories\ProjectRepository\ProjectRepositoryInterface;
+use App\Traits\CreateMedia;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public $repository;
+    use CreateMedia;
 
-    public function __construct(ProductRepositoryInterface $repository)
+    public $repository;
+    public $projectRepository;
+
+    public function __construct(ProductRepositoryInterface $repository, ProjectRepositoryInterface $projectRepository)
     {
         $this->middleware('auth:api', ['except' => ['index']]);
         $this->repository = $repository;
+        $this->projectRepository = $projectRepository;
     }
 
     /**
@@ -42,7 +48,11 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+        $imageUrls = $this->uploadMedia($request->file('files'), 'Images', Product::class);
         $products = $this->repository->store($request->all());
+        if ($imageUrls != null) {
+            $this->projectRepository->MapData($imageUrls, $products);
+        }
         return response()->json(['message' => 'create product is success'], 200);
     }
 
@@ -67,6 +77,16 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
+        $files = $request->file('files');
+        if ($files) {
+            $media = $this->FindMedia($product);
+            foreach ($media as $m) {
+                unlink(public_path($m->url));
+                $this->destroyMedia($product);
+            }
+            $imageUrls = $this->uploadMedia($request->file('files'), 'Images', Product::class);
+            $this->projectRepository->MapData($imageUrls, $product);
+        }
         $this->repository->update($request->all(), $product);
         return response()->json(['message' => 'updated is success'], 200);
     }
@@ -79,8 +99,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $media = $this->FindMedia($product);
+        foreach ($media as $m) {
+            unlink(public_path($m->url));
+            $this->destroyMedia($product);
+        }
         $this->repository->delete($product);
-
         return response()->json(['message' => 'deleted is success'], 200);
     }
 }
