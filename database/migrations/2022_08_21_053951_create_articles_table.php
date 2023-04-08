@@ -22,7 +22,6 @@ return new class extends Migration {
             $table->text('description');
             $table->integer('viewCount')->default(0);
             $table->integer('commentCount')->default(0);
-            $table->string('image')->nullable();
             $table->schemalessAttributes('extra_attributes');
             $table->timestamps();
         });

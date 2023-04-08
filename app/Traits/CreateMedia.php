@@ -14,7 +14,7 @@ trait CreateMedia
     protected function uploadMedia($files, $type, $class)
     {
         if (isset($files)) {
-            $url=null;
+            $url = null;
             foreach ($files as $key => $file) {
                 $year = Carbon::now()->year;
                 switch ($class) {
@@ -64,16 +64,49 @@ trait CreateMedia
         return $media;
     }
 
-    public function FindMedia($model)
+    public function FindMedia($model, $type = null)
     {
-        $media = Media::where('mediable_id', $model->id)->where('mediable_type', get_class($model))->get();
+        if ($type == null)
+            $media = Media::where('mediable_id', $model->id)->where('mediable_type', get_class($model))->get();
+        else
+            $media = Media::where('mediable_id', $model->id)->where('mediable_type', get_class($model))->where('type', $type)->get();
+
         return $media;
     }
 
-    public function destroyMedia($model)
+    public function destroyMedia($model, $id = null)
     {
-        Media::where('mediable_id', $model->id)->where('mediable_type', get_class($model))->delete();
+        if ($id == null)
+            Media::where('mediable_id', $model->id)->where('mediable_type', get_class($model))->delete();
+        else
+            Media::where('mediable_id', $model->id)->where('mediable_type', get_class($model))->where('id', $id)->delete();
+
         return true;
+    }
+
+    public function uploadVideoservice($file, $type, $class)
+    {
+        if (isset($file)) {
+            $year = Carbon::now()->year;
+            switch ($class) {
+                case ($class == Project::class):
+                    $mediaUrl = "/upload/Project/{$type}/{$year}/";
+                    break;
+
+                case ($class == Article::class):
+                    $mediaUrl = "/upload/Article/{$type}/{$year}/";
+                    break;
+
+                case ($class == Product::class):
+                    $mediaUrl = "/upload/Product/{$type}/{$year}/";
+                    break;
+
+            }
+            $fileName = $file->getClientOriginalName();
+            $file = $file->move(public_path($mediaUrl), $fileName);
+            $url = $mediaUrl . $fileName;
+            return $url;
+        } else return null;
     }
 }
 

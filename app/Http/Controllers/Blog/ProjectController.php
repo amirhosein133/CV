@@ -28,7 +28,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::where('secret' , 0)->paginate();
+        $projects = Project::where('secret', 0)->paginate();
         return view('projects.index', compact('projects'));
 
     }
@@ -55,7 +55,7 @@ class ProjectController extends Controller
 
         $imageUrls = $this->uploadMedia($request->file('files'), 'Images', Project::class);
         $project = $this->repository->create($request->all());
-        $this->repository->MapData($imageUrls, $project);
+        $this->repository->MapData($imageUrls, 'images', $project);
         Alert::success('', 'عملیات با موفقیت انجام شد');
         return redirect(route('project.index'));
     }
@@ -69,7 +69,7 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         $comment = new \App\Models\Comment();
-        return view('projects.show', compact('project' , 'comment'));
+        return view('projects.show', compact('project', 'comment'));
     }
 
     /**
@@ -102,7 +102,7 @@ class ProjectController extends Controller
                 $this->destroyMedia($project);
             }
             $imageUrls = $this->uploadMedia($request->file('files'), 'Images', Project::class);
-            $this->repository->MapData($imageUrls, $project);
+            $this->repository->MapData($imageUrls, 'images', $project);
         }
         Alert::success('', 'عملیات با موفقیت انجام شد');
         return redirect(route('project.index'));

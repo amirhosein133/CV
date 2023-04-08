@@ -31,5 +31,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('show/{product}' , [ProductController::class , 'show']);
         Route::put('update/{product}' , [ProductController::class , 'update']);
         Route::delete('delete/{product}' , [ProductController::class , 'destroy']);
+        Route::post('upload_video/{product}' , [ProductController::class , 'uploadVideo']);
+        Route::post('destroy_video/{product}' , [ProductController::class , 'destroyVideo']);
     });
 });

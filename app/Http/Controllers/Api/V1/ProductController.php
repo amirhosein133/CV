@@ -48,10 +48,10 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        $imageUrls = $this->uploadMedia($request->file('files'), 'Images', Product::class);
+        $imageUrls = $this->uploadMedia($request->file('files'), 'images', Product::class);
         $products = $this->repository->store($request->all());
         if ($imageUrls != null) {
-            $this->projectRepository->MapData($imageUrls, $products);
+            $this->projectRepository->MapData($imageUrls, 'images', $products);
         }
         return response()->json(['message' => 'create product is success'], 200);
     }
@@ -85,7 +85,7 @@ class ProductController extends Controller
                 $this->destroyMedia($product);
             }
             $imageUrls = $this->uploadMedia($request->file('files'), 'Images', Product::class);
-            $this->projectRepository->MapData($imageUrls, $product);
+            $this->projectRepository->MapData($imageUrls, 'images', $product);
         }
         $this->repository->update($request->all(), $product);
         return response()->json(['message' => 'updated is success'], 200);
@@ -93,7 +93,6 @@ class ProductController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
@@ -106,5 +105,27 @@ class ProductController extends Controller
         }
         $this->repository->delete($product);
         return response()->json(['message' => 'deleted is success'], 200);
+    }
+
+    public function uploadVideo(Request $request, Product $product)
+    {
+        $file = $request->file('file');
+        $imageUrl = $this->uploadVideoservice($file, 'videos', Product::class);
+        if ($imageUrl != null) {
+            $this->projectRepository->MapData($imageUrl, 'videos', $product);
+        } else return response()->json(['Error' => 'you have a problem'], 402);
+        return response()->json(['message' => 'upload video is success'], 200);
+    }
+
+    public function destroyVideo(Request $request, Product $product)
+    {
+        $media = $this->FindMedia($product, 'videos');
+        foreach ($media as $m) {
+            if ($m->id == intval($request->video_id)) {
+                unlink(public_path($m->url));
+                $this->destroyMedia($product, $m->id);
+            }
+        }
+        return response()->json(['message' => 'delete video is success'], 200);
     }
 }

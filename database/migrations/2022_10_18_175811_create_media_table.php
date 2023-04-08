@@ -15,6 +15,7 @@ return new class extends Migration {
         Schema::create('media', function (Blueprint $table) {
             $table->id();
             $table->string('url');
+            $table->string('title')->nullable();
             $table->string('type')->default('image');
             $table->integer('mediable_id');
             $table->string("mediable_type");

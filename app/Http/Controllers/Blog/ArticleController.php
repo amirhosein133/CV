@@ -66,7 +66,7 @@ class ArticleController extends HomeController
         $imageUrls = $this->uploadMedia($request->file('files'), 'Images', Article::class);
         $article = $this->repository->store(\auth()->user(), $request->all());
         if ($imageUrls != null) {
-            $this->projectRepository->MapData($imageUrls, $article);
+            $this->projectRepository->MapData($imageUrls,'images', $article);
         }
         Alert::success('', 'عملیات با موفقیت انجام شد');
         return redirect()->route('article.index');
@@ -114,7 +114,7 @@ class ArticleController extends HomeController
                 $this->destroyMedia($article);
             }
             $imageUrls = $this->uploadMedia($request->file('files'), 'Images', Article::class);
-            $this->projectRepository->MapData($imageUrls, $article);
+            $this->projectRepository->MapData($imageUrls,'images', $article);
         }
         $this->repository->update($article, $request->all());
         Alert::success('', 'عملیات با موفقیت انجام شد');

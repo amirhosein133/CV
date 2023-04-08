@@ -20,6 +20,7 @@ class ElequentProjectRepository implements ProjectRepositoryInterface
     {
         return $this->model->all();
     }
+
     public function create($attributes)
     {
 
@@ -43,14 +44,23 @@ class ElequentProjectRepository implements ProjectRepositoryInterface
         return $project->delete();
     }
 
-    public function MapData($imageUrls, $project)
+    public function MapData($imageUrls, $type, $project)
     {
-        foreach ($imageUrls as $url) {
+        if (is_array($imageUrls))
+            foreach ($imageUrls as $url) {
+                $data = [
+                    'url' => $url['original'],
+                    'type' => $type,
+                    'mediable_id' => $project->id,
+                    'mediable_type' => get_class($project),
+                ];
+                $this->CreateMedia($data);
+            } else {
             $data = [
-                'url' => $url['original'],
-                'type' => 'images',
+                'url' => $imageUrls,
+                'type' => $type,
                 'mediable_id' => $project->id,
-                'mediable_type' => get_class($project),
+                'mediable_type' => get_class($project)
             ];
             $this->CreateMedia($data);
         }
