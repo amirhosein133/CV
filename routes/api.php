@@ -27,11 +27,11 @@ Route::group(['prefix' => 'v1'], function () {
     });
     Route::group(['prefix' => 'product'] , function (){
         Route::get('index' , [ProductController::class , 'index']);
-        Route::post('store' , [ProductController::class , 'store']);
+        Route::post('store' , [ProductController::class , 'store'])->middleware('admin');
         Route::post('show/{product}' , [ProductController::class , 'show']);
-        Route::put('update/{product}' , [ProductController::class , 'update']);
+        Route::put('update/{product}' , [ProductController::class , 'update'])->middleware('admin');
         Route::delete('delete/{product}' , [ProductController::class , 'destroy']);
-        Route::post('upload_video/{product}' , [ProductController::class , 'uploadVideo']);
-        Route::post('destroy_video/{product}' , [ProductController::class , 'destroyVideo']);
+        Route::post('upload_video/{product}' , [ProductController::class , 'uploadVideo'])->middleware('admin');
+        Route::post('destroy_video/{product}' , [ProductController::class , 'destroyVideo'])->middleware('admin');
     });
 });

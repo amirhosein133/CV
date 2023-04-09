@@ -19,7 +19,7 @@ class IsAdmin
       if(Auth::check() && \auth()->user()->IsAdmin()){
           return $next($request);
       }else{
-          abort(401);
+          return response()->json(['Error' => 'you dont Allow access'] , 403);
       }
     }
 }
