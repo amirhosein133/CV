@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\CommentController;
 use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,5 +34,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::delete('delete/{product}' , [ProductController::class , 'destroy']);
         Route::post('upload_video/{product}' , [ProductController::class , 'uploadVideo'])->middleware('admin');
         Route::post('destroy_video/{product}' , [ProductController::class , 'destroyVideo'])->middleware('admin');
+    });
+    Route::group(['prefix' => 'comment'] , function (){
+       Route::post('store' , [CommentController::class , 'store']);
+       Route::delete('delete/{comment}' , [CommentController::class , 'destroy'])->middleware('admin');
+       Route::post('changeStatus/{comment}' , [CommentController::class , 'changeStatus'])->middleware('admin');
     });
 });

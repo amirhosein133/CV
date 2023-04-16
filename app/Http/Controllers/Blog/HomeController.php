@@ -8,6 +8,8 @@ use App\Models\Article;
 use App\Models\BaseModel;
 use App\Models\Connection;
 use App\Models\Favorite;
+use App\Models\Product;
+use App\Models\Project;
 use App\Models\User;
 use App\Repositories\ConnectionRepository\ConnectionRepositoryInterface;
 use App\Traits\CreateComment;
@@ -16,7 +18,9 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     use CreateComment;
+
     public $repository;
+
     public function __construct(ConnectionRepositoryInterface $repository)
     {
         $this->repository = $repository;
@@ -25,9 +29,21 @@ class HomeController extends Controller
     protected function Comment($attributes)
     {
         $this->CreateComment($attributes);
-        $article = Article::whereId($attributes['commentable_id'])->first();
+        switch ($attributes['commentable_type']) {
+            case(get_class(new Article())):
+                $model = Article::whereId($attributes['commentable_id'])->first();
+                break;
+
+            case (get_class(new Project())):
+                $model = Project::whereId($attributes['commentable_id'])->first();
+                break;
+
+            case (get_class(new Product())):
+                $model = Product::whereId($attributes['commentable_id'])->first();
+                break;
+        }
         $type = BaseModel::TYPE_COMMENT;
-        event(new CreateCommentEvent($article, $type));
+        event(new CreateCommentEvent($model, $type));
 
     }
 
