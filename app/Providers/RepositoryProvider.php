@@ -8,6 +8,8 @@ use App\Repositories\CommentRepository\CommentRepositoryInterface;
 use App\Repositories\CommentRepository\ElequentCommentRepository;
 use App\Repositories\ConnectionRepository\ConnectionRepositoryInterface;
 use App\Repositories\ConnectionRepository\ElequentConnectionRepository;
+use App\Repositories\FavoriteRepository\ElequentFavoriteRepository;
+use App\Repositories\FavoriteRepository\FavoriteRepositoryInterface;
 use App\Repositories\LoginRepository\ElequentLoginRepository;
 use App\Repositories\LoginRepository\LoginRepositoryInterface;
 use App\Repositories\PermissionRepository\ElequentPermissionRepository;
@@ -53,5 +55,6 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(PermissionRepositoryInterface::class, ElequentPermissionRepository::class);
         $this->app->bind(ConnectionRepositoryInterface::class, ElequentConnectionRepository::class);
         $this->app->bind(ProductRepositoryInterface::class, ElequentProductRepository::class);
+        $this->app->bind(FavoriteRepositoryInterface::class, ElequentFavoriteRepository::class);
     }
 }

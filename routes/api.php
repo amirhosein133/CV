@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CommentController;
+use App\Http\Controllers\Api\V1\FavoriteController;
 use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -39,5 +40,8 @@ Route::group(['prefix' => 'v1'], function () {
        Route::post('store' , [CommentController::class , 'store']);
        Route::delete('delete/{comment}' , [CommentController::class , 'destroy'])->middleware('admin');
        Route::post('changeStatus/{comment}' , [CommentController::class , 'changeStatus'])->middleware('admin');
+    });
+    Route::group(['prefix' => 'favorite'] , function (){
+       Route::post('favorite' , [FavoriteController::class , 'favorite']);
     });
 });

@@ -51,6 +51,7 @@ class PanelController extends HomeController
 
     public function favorite(Request $request)
     {
+        //TODO list make favorite controller in blog
         switch ($request->model_type) {
             case(get_class(new Article())):
                 $model = Article::whereId($request->model_id)->first();
