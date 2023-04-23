@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\ArticleRepository\ArticleRepositoryInterface;
 use App\Repositories\ArticleRepository\ElequentArticleRepository;
+use App\Repositories\CartRepository\CartRepositoryInterface;
+use App\Repositories\CartRepository\ElequentCartRepository;
 use App\Repositories\CommentRepository\CommentRepositoryInterface;
 use App\Repositories\CommentRepository\ElequentCommentRepository;
 use App\Repositories\ConnectionRepository\ConnectionRepositoryInterface;
@@ -56,5 +58,6 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(ConnectionRepositoryInterface::class, ElequentConnectionRepository::class);
         $this->app->bind(ProductRepositoryInterface::class, ElequentProductRepository::class);
         $this->app->bind(FavoriteRepositoryInterface::class, ElequentFavoriteRepository::class);
+        $this->app->bind(CartRepositoryInterface::class, ElequentCartRepository::class);
     }
 }

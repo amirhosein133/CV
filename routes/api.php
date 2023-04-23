@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CommentController;
 use App\Http\Controllers\Api\V1\FavoriteController;
 use App\Http\Controllers\Api\V1\ProductController;
@@ -19,29 +20,34 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'auth'], function ($router) {
-        Route::post('validation' , [AuthController::class , 'validation']);
+        Route::post('validation', [AuthController::class, 'validation']);
         Route::post('login', [AuthController::class, 'login']);
-        Route::post('register' , [AuthController::class , 'register']);
-        Route::post('registered' , [AuthController::class , 'registered']);
+        Route::post('register', [AuthController::class, 'register']);
+        Route::post('registered', [AuthController::class, 'registered']);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('refresh', [AuthController::class, 'refresh']);
         Route::post('me', [AuthController::class, 'me']);
     });
-    Route::group(['prefix' => 'product'] , function (){
-        Route::get('index' , [ProductController::class , 'index']);
-        Route::post('store' , [ProductController::class , 'store'])->middleware('admin');
-        Route::post('show/{product}' , [ProductController::class , 'show']);
-        Route::put('update/{product}' , [ProductController::class , 'update'])->middleware('admin');
-        Route::delete('delete/{product}' , [ProductController::class , 'destroy']);
-        Route::post('upload_video/{product}' , [ProductController::class , 'uploadVideo'])->middleware('admin');
-        Route::post('destroy_video/{product}' , [ProductController::class , 'destroyVideo'])->middleware('admin');
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('index', [ProductController::class, 'index']);
+        Route::post('store', [ProductController::class, 'store'])->middleware('admin');
+        Route::post('show/{product}', [ProductController::class, 'show']);
+        Route::put('update/{product}', [ProductController::class, 'update'])->middleware('admin');
+        Route::delete('delete/{product}', [ProductController::class, 'destroy']);
+        Route::post('upload_video/{product}', [ProductController::class, 'uploadVideo'])->middleware('admin');
+        Route::post('destroy_video/{product}', [ProductController::class, 'destroyVideo'])->middleware('admin');
     });
-    Route::group(['prefix' => 'comment'] , function (){
-       Route::post('store' , [CommentController::class , 'store']);
-       Route::delete('delete/{comment}' , [CommentController::class , 'destroy'])->middleware('admin');
-       Route::post('changeStatus/{comment}' , [CommentController::class , 'changeStatus'])->middleware('admin');
+    Route::group(['prefix' => 'comment'], function () {
+        Route::post('store', [CommentController::class, 'store']);
+        Route::delete('delete/{comment}', [CommentController::class, 'destroy'])->middleware('admin');
+        Route::post('changeStatus/{comment}', [CommentController::class, 'changeStatus'])->middleware('admin');
     });
-    Route::group(['prefix' => 'favorite'] , function (){
-       Route::post('favorite' , [FavoriteController::class , 'favorite']);
+    Route::group(['prefix' => 'favorite'], function () {
+        Route::post('favorite', [FavoriteController::class, 'favorite']);
+    });
+    Route::group(['prefix' => 'cart'], function () {
+        Route::get('index', [CartController::class, 'index']);
+        Route::post('store/{product}', [CartController::class, 'store']);
+        Route::delete('delete/{cart}', [CartController::class, 'destroy']);
     });
 });
