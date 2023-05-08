@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CommentController;
+use App\Http\Controllers\Api\V1\DiscountController;
 use App\Http\Controllers\Api\V1\FavoriteController;
 use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Http\Request;
@@ -49,5 +50,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('index', [CartController::class, 'index']);
         Route::post('store/{product}', [CartController::class, 'store']);
         Route::delete('delete/{cart}', [CartController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'discount'] , function (){
+       Route::post('store' , [DiscountController::class , 'store']);
+       Route::put('update/{discount}' , [DiscountController::class , 'update']);
+       Route::delete('delete/{discount}' , [DiscountController::class , 'delete']);
     });
 });

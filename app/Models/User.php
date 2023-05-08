@@ -124,5 +124,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Favorite::class);
     }
 
+    public function discounts()
+    {
+        return $this->morphMany(Discount::class, 'discountable');
+    }
+
 
 }

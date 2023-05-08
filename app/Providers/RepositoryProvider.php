@@ -10,6 +10,8 @@ use App\Repositories\CommentRepository\CommentRepositoryInterface;
 use App\Repositories\CommentRepository\ElequentCommentRepository;
 use App\Repositories\ConnectionRepository\ConnectionRepositoryInterface;
 use App\Repositories\ConnectionRepository\ElequentConnectionRepository;
+use App\Repositories\DiscountRepository\DiscountRepositoryInterface;
+use App\Repositories\DiscountRepository\ElequentDiscountRepository;
 use App\Repositories\FavoriteRepository\ElequentFavoriteRepository;
 use App\Repositories\FavoriteRepository\FavoriteRepositoryInterface;
 use App\Repositories\LoginRepository\ElequentLoginRepository;
@@ -59,5 +61,6 @@ class RepositoryProvider extends ServiceProvider
         $this->app->bind(ProductRepositoryInterface::class, ElequentProductRepository::class);
         $this->app->bind(FavoriteRepositoryInterface::class, ElequentFavoriteRepository::class);
         $this->app->bind(CartRepositoryInterface::class, ElequentCartRepository::class);
+        $this->app->bind(DiscountRepositoryInterface::class, ElequentDiscountRepository::class);
     }
 }

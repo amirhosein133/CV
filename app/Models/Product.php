@@ -48,4 +48,9 @@ class Product extends Model
         return $this->morphMany(Media::class, 'mediable');
     }
 
+    public function discounts()
+    {
+        return $this->morphMany(Discount::class, 'discountable');
+    }
+
 }
