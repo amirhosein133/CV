@@ -14,11 +14,12 @@ return new class extends Migration {
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
+            $table->string('code');
             $table->integer('percent');
             $table->integer('limit');
             $table->date('expire_time');
-
+            $table->text('used_by_user')->nullable();
+            $table->schemalessAttributes('extra_attributes');
             $table->unsignedBigInteger('discountable_id');
             $table->string('discountable_type');
             $table->timestamps();

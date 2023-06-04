@@ -25,7 +25,7 @@ class DiscountRequest extends FormRequest
     {
         if ($this->method() == 'POST') {
             return [
-                'code' => 'required|unique:discounts',
+                'code' => 'required',
                 'percent' => 'required',
                 'limit' => 'required',
                 'expire_time' => 'required',
@@ -47,7 +47,6 @@ class DiscountRequest extends FormRequest
     {
         return [
             'code.required' => 'این فیلد الزامیست.',
-            'code.unique' => 'این کد تخفیف قبلا وجود دارد',
             'percent.required' => 'این فیلد الزامیست.',
             'limit.required' => 'این فیلد الزامیست.',
             'expire_time.required' => 'این فیلد الزامیست.',

@@ -55,5 +55,6 @@ Route::group(['prefix' => 'v1'], function () {
        Route::post('store' , [DiscountController::class , 'store']);
        Route::put('update/{discount}' , [DiscountController::class , 'update']);
        Route::delete('delete/{discount}' , [DiscountController::class , 'delete']);
+       Route::post('validate/{product}' , [DiscountController::class , 'validationDiscount']);
     });
 });

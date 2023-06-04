@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('quantity');
             $table->string('product_price');
             $table->string('total_price');
+            $table->schemalessAttributes('extra_attributes');
 
             $table->timestamps();
         });
